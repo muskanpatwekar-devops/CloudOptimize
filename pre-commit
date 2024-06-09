@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# file: .git/hooks/pre-commit
+. githooks/detect-secrets-pre-commit.sh
+. githooks/shellcheck-pre-commit.sh
