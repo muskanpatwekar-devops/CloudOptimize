@@ -13,7 +13,7 @@ echo "Info :Installing the aws cli..."
 
 #Download zip aws cli and store in tmp directory
 
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
+curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" 
 
 #Extract the zip file and store in opt directory
 
