@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CSV_INSTANCE_REPORT=instance-report.csv
-HTML_TEMPLATE_FILE=../template/email-content.html.tpl
+CSV_INSTANCE_REPORT="instance-report.csv"
+HTML_TEMPLATE_FILE="template/email-content.html.tpl"
 RENDERED_HTML_FILE="rendered-email-content.html"
 TABLE_ROWS=""
 

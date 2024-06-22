@@ -39,7 +39,7 @@ aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 aws configure set region $AWS_REGION
 aws configure set output $AWS_OUTPUT
 
-if aws sts get-caller-identity < /dev/null 2>&1; then
+if aws sts get-caller-identity > /dev/null 2>&1; then
 IAM_USERNAME=$(aws sts get-caller-identity --query 'Arn' --output text | awk -F"/" '{print $2}')
 echo "INFO :User is successfully logged in $IAM_USERNAME"
 else
