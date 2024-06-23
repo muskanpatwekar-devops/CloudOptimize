@@ -41,43 +41,32 @@ aws configure set output $AWS_OUTPUT
 
 if aws sts get-caller-identity > /dev/null 2>&1; then
 IAM_USERNAME=$(aws sts get-caller-identity --query 'Arn' --output text | awk -F"/" '{print $2}')
-echo "INFO :User is successfully logged in $IAM_USERNAME"
+echo "INFO: User is successfully logged in $IAM_USERNAME"
 else
 echo "ERROR : Unexpected error accur while authenticating the IAM USER"
 exit 1
 fi 
 
 # Set azure authN variable 
-#AZURE_CLIENT_ID=$(yq -r '.auth_config.azure.client_id' $CREDENTIAL_FILE)
-#AZURE_CLIENT_SECRET=$(yq -r '.auth_config.azure.client_secret' $CREDENTIAL_FILE)
-#AZURE_SUBSCRIPTION_ID=$(yq -r '.auth_config.azure.subscription_id' $CREDENTIAL_FILE)
-#AZURE_TENANT_ID=$(yq -r '.auth_config.azure.tenant_id' $CREDENTIAL_FILE)
+AZURE_CLIENT_ID=$(yq -r '.auth_config.azure.client_id' $CREDENTIAL_FILE)
+AZURE_CLIENT_SECRET=$(yq -r '.auth_config.azure.client_secret' $CREDENTIAL_FILE)
+AZURE_SUBSCRIPTION_ID=$(yq -r '.auth_config.azure.subscription_id' $CREDENTIAL_FILE)
+AZURE_TENANT_ID=$(yq -r '.auth_config.azure.tenant_id' $CREDENTIAL_FILE)
 
-#az login --service-principal \
-#-u $AZURE_CLIENT_ID \
-#-p $AZURE_CLIENT_SECRET \
-#--tenant $AZURE_TENANT_ID \
-#--allow-no-subscription
-
-#  set active subscription
-#az account set --subscription "${AZURE_SUBSCRIPTION_ID}" 
-
-#if az account show >/dev/null 2>&1; then
-
-  #AZURE_APP_NAME=$(az ad sp show --id "$(az account show --query 'user.name' -o tsv)" --query appDisplayName -o tsv)
-  #echo "INFO: Successfully logged in with Azure App ${AZURE_APP_NAME}"
-#else
- # echo "ERROR: Unexpected error occured while authenticating with AZ CLI command."
- # exit 1
-#fi
-
-#az login --service-principal \
-#-u $AZURE_CLIENT_ID \
-#-p $AZURE_CLIENT_SECRET \
-#--tenant $AZURE_TENANT_ID \
-#--allow-no-subscription
+az login --service-principal \
+-u $AZURE_CLIENT_ID \
+-p $AZURE_CLIENT_SECRET \
+--tenant $AZURE_TENANT_ID \
+--allow-no-subscription > /dev/null
 
 #  set active subscription
-#az account set --subscription "${AZURE_SUBSCRIPTION_ID}" 
+az account set --subscription "${AZURE_SUBSCRIPTION_ID}" 
 
+if az account show > /dev/null 2>&1; then
 
+  AZURE_APP_NAME=$(az ad sp show --id "$(az account show --query 'user.name' -o tsv)" --query appDisplayName -o tsv)
+  echo "INFO: Successfully logged in with Azure App ${AZURE_APP_NAME}"
+else
+  echo "ERROR: Unexpected error occured while authenticating with AZ CLI command."
+  exit 1
+fi

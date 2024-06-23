@@ -25,3 +25,4 @@ DATESTAMP=$(date +%Y%m%d-%H%M%S)
 echo "aws,${INSTANCE_NAME},${INSTANCE_IP},${INSTANCE_STATE},${DATESTAMP},${DATESTAMP},shutdown" >> $OUTPUT_CSV_FILE
 
 done
+
