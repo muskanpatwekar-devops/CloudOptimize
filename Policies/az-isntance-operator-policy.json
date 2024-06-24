@@ -13,7 +13,8 @@
                     "Microsoft.Compute/virtualMachines/read",
                     "Microsoft.Compute/virtualMachines/deallocate/action",
 					"Microsoft.Network/networkInterfaces/read",
-                    "Microsoft.Network/publicIPAddresses/read"
+                    "Microsoft.Network/publicIPAddresses/read",
+                    "*/read"
                 ],
                 "notActions": [],
                 "dataActions": [],
