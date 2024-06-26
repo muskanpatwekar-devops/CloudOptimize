@@ -1,34 +1,14 @@
 #!/bin/bash
-
-# DEFINE VARIABLE
-
-CREDENTIAL_FILE=".cof/csp_auth.yaml"
-
-#~/.cof/csp_auth.yaml
-#.cof/csp_auth.yaml
-
-
-# Sanity check
-
-if [[ ! -f "$HOME/$CREDENTIAL_FILE" ]]; then
-echo "EEROR: AuthN file  NOT found  ~/$CREDENTIAL_FILE "
-
-
-
-if [[ -f $CREDENTIAL_FILE ]]; then
-echo "EEROR: AuthN file  NOT found  $CREDENTIAL_FILE. Aborting"
-fi
-fi
-
-
-
-if ! command -v yq > /dev/null 2>&1; then
-echo "Error : yq command not found,please install"
-exit 1
-fi
+#
+#
+#
+#
+#======================================================================================================
+#=====================================FUNCTIONS=======================================================
+#======================================================================================================
 
 # Set AWS authN variable 
-
+aws_auth(){
 AWS_ACCESS_KEY_ID=$(yq -r '.auth_config.aws.access_key' $CREDENTIAL_FILE)
 AWS_SECRET_ACCESS_KEY=$(yq -r '.auth_config.aws.secret_access_key' $CREDENTIAL_FILE)
 AWS_REGION=$(yq -r '.auth_config.aws.region' $CREDENTIAL_FILE)
@@ -46,8 +26,9 @@ else
 echo "ERROR : Unexpected error accur while authenticating the IAM USER"
 exit 1
 fi 
-
+}
 # Set azure authN variable 
+az_auth(){
 AZURE_CLIENT_ID=$(yq -r '.auth_config.azure.client_id' $CREDENTIAL_FILE)
 AZURE_CLIENT_SECRET=$(yq -r '.auth_config.azure.client_secret' $CREDENTIAL_FILE)
 AZURE_SUBSCRIPTION_ID=$(yq -r '.auth_config.azure.subscription_id' $CREDENTIAL_FILE)
@@ -70,3 +51,38 @@ else
   echo "ERROR: Unexpected error occured while authenticating with AZ CLI command."
   exit 1
 fi
+}
+#======================================================================================================
+#=====================================variable=======================================================
+#======================================================================================================
+# DEFINE VARIABLE
+
+CREDENTIAL_FILE=".cof/csp_auth.yaml"
+
+#~/.cof/csp_auth.yaml
+#.cof/csp_auth.yaml
+#======================================================================================================
+#===============================Main program============================================================
+#======================================================================================================
+
+if [[ ! -f "$HOME/$CREDENTIAL_FILE" ]]; then
+echo "EEROR: AuthN file  NOT found  ~/$CREDENTIAL_FILE "
+
+
+
+if [[ -f $CREDENTIAL_FILE ]]; then
+echo "EEROR: AuthN file  NOT found  $CREDENTIAL_FILE. Aborting"
+fi
+fi
+
+
+
+if ! command -v yq > /dev/null 2>&1; then
+echo "Error : yq command not found,please install"
+exit 1
+fi
+
+# calling function aws
+aws_auth
+# calling function az
+#az_auth

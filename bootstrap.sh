@@ -56,7 +56,7 @@ else
 
 # Installation of clouds 
 . libs/installawscli.sh
-. libs/install_azcli.sh
+#. libs/install_azcli.sh
 
 # authN to cloud 
 . libs/csp_aunN.sh
@@ -88,14 +88,14 @@ if [[ ! -f ${MAIL_CONTENT} ]]; then
   exit 1
 fi
 
-sendmail $MAIL_RECIPIENT <<EOF
-From: $MAIL_FROM
-To: $MAIL_RECIPIENT
-Subject: HTML Format Email
-Content-Type: text/html
+#sendmail $MAIL_RECIPIENT <<EOF
+#From: $MAIL_FROM
+#To: $MAIL_RECIPIENT
+#Subject: HTML Format Email
+#Content-Type: text/html
 
-$(cat ${MAIL_CONTENT})
-EOF
+#$(cat ${MAIL_CONTENT})
+#EOF
 
 
 
