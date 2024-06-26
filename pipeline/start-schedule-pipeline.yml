@@ -1,0 +1,48 @@
+stages:
+  - start
+  - send-email
+
+variables:
+  MAIL_FROM: patwekarmuskan2@gmail.com
+  MAIL_RECIPIENT: "patwekarmuskan2@gmail.com"
+  SKIP_BUILTIN_EMAIL: "true"
+
+start-instances:
+  stage: start
+  before_script:
+    - mkdir .cof
+    - cat $COF_AUTH_CONFIG > .cof/csp_auth.yaml
+  script:
+    - bash -x bootstrap.sh --action start
+  artifacts:
+    paths:
+      - rendered-email-content.html
+  #only:
+   # - schedule
+
+notification:
+  stage: send-email
+  image: alpine:latest
+  script:
+    - apk add --no-cache ssmtp mailx
+    - echo "root=postmaster" > /etc/ssmtp/ssmtp.conf
+    - echo "mailhub=smtp.gmail.com:587" >> /etc/ssmtp/ssmtp.conf
+    - echo "hostname=localhost" >> /etc/ssmtp/ssmtp.conf
+    - echo "AuthUser=$MAIL_FROM" >> /etc/ssmtp/ssmtp.conf
+    - echo "AuthPass=$GMAIL_APP_PASSWORD" >> /etc/ssmtp/ssmtp.conf
+    - echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
+    - echo "rewriteDomain=gmail.com" >> /etc/ssmtp/ssmtp.conf
+    - echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf
+    - | 
+      sendmail $MAIL_RECIPIENT <<EOF
+      From: $MAIL_FROM
+      To: $MAIL_RECIPIENT
+      Subject: Daily Instance Schedule Report
+      Content-Type: text/html
+      
+      $(cat rendered-email-content.html)
+      EOF
+  dependencies:
+    - start-instances
+ # only:
+  #  - schedule
