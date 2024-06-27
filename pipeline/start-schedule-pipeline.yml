@@ -17,8 +17,8 @@ start-instances:
   artifacts:
     paths:
       - rendered-email-content.html
-  #only:
-   # - schedule
+  only:
+    - schedule
 
 notification:
   stage: send-email
@@ -29,7 +29,7 @@ notification:
     - echo "mailhub=smtp.gmail.com:587" >> /etc/ssmtp/ssmtp.conf
     - echo "hostname=localhost" >> /etc/ssmtp/ssmtp.conf
     - echo "AuthUser=$MAIL_FROM" >> /etc/ssmtp/ssmtp.conf
-    - echo "AuthPass=$GMAIL_APP_PASSWORD" >> /etc/ssmtp/ssmtp.conf
+    - echo "AuthPass=$GITLAB_PASSWD" >> /etc/ssmtp/ssmtp.conf
     - echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
     - echo "rewriteDomain=gmail.com" >> /etc/ssmtp/ssmtp.conf
     - echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf
@@ -44,5 +44,5 @@ notification:
       EOF
   dependencies:
     - start-instances
- # only:
-  #  - schedule
+  only:
+    - schedule

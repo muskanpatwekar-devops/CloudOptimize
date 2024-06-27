@@ -25,8 +25,6 @@ helper(){
 
 # Variable defination
 
-MAIL_RECIPIENT="patwekarmuskan2@gmail.com"
-MAIL_FROM="patwekarmuskan2@gmail.com"
 MAIL_CONTENT="rendered-email-content.html"
 
 
