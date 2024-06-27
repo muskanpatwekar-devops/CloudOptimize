@@ -9,7 +9,7 @@ bump_version(){
     local part=$2
 
  # remove the v from version
- version=${version#v}
+ version="${version#v}"
 
  #Split the verion in major,minor,patch
  IFS='.' read -r -a version_array <<< "$version"
@@ -29,7 +29,7 @@ bump_version(){
 }
 
 # current tag
-current_tag=$(git describe --abrev=0 --tags)
+current_tag=$(git describe --abbrev=0 --tags)
 
 # Check if an argument is provided
 
