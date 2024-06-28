@@ -56,7 +56,7 @@ release_job:
     - curl --location --output ./release-cli "https://gitlab.com/api/v4/projects/gitlab-org%2Frelease-cli/packages/generic/release-cli/latest/release-cli-linux-amd64"
     - chmod +x ./release-cli
   script: 
-    - export NEW_TAG_VERSION=$(bash pipelines/bump_tag_version.sh $RELEASE_LABEL)
+    - export NEW_TAG_VERSION=$(bash pipeline/bumptag_version.sh $RELEASE_LABEL)
     - echo "Running the release job and creating a new tag version $NEW_TAG_VERSION."
     - |
       ./release-cli create --name "$NEW_TAG_VERSION" \
