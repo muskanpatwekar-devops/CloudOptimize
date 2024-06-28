@@ -4,7 +4,7 @@
 
 #Creating bump function
 
-bump_version(){
+bump_version() {
     local version=$1
     local part=$2
 
@@ -33,7 +33,7 @@ current_tag=$(git describe --abbrev=0 --tags)
 
 # Check if an argument is provided
 
-if [[ $# -eq 0 ]]; then
+if [ $# -eq 0 ]; then
 echo "USAGE : $0 <major|minor|patch>"
 exit 1
 fi
