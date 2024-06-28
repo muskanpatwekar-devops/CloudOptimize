@@ -42,24 +42,25 @@ detect-secret:
   only:
     - merge_requests
 
-pre-release:
-  stage: pre_release   
+pre_release_job:
+  stage: pre_release
   script:
     - echo "Running pre-release integration tests"
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =="release"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "release"
+
 
 release_job:
   stage: release
-  before_script: 
+  before_script:
     - curl --location --output ./release-cli "https://gitlab.com/api/v4/projects/gitlab-org%2Frelease-cli/packages/generic/release-cli/latest/release-cli-linux-amd64"
     - chmod +x ./release-cli
-  script:
-  - export NEW_TAG_VERSION=$(bash pipeline/bumptag_version.sh $RELEASE_LABEL)
-  - echo "Running the release job and creating a new tag version $NEW_TAG_VERSION."
-  - |
-    ./release-cli create --name $NEW_TAG_VERSION \
-     --tag-name $NEW_TAG_VERSION \
-     --description "Created using the release-cli for version $NEW_TAG_VERSION" \
+  script: 
+    - export NEW_TAG_VERSION=$(bash pipeline/bumptag_version.sh $RELEASE_LABEL)
+    - echo "Running the release job and creating a new tag version $NEW_TAG_VERSION."
+    - |
+      ./release-cli create --name "$NEW_TAG_VERSION" \
+        --tag-name "$NEW_TAG_VERSION" \
+        --description "Created using the release-cli for version $NEW_TAG_VERSION"
   rules:
-    - if: $CI_COMMIT_BRANCH == "release"   
+    - if: $CI_COMMIT_BRANCH == "release"
