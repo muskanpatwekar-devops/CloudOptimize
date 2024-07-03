@@ -85,4 +85,4 @@ fi
 # calling function aws
 aws_auth
 # calling function az
-#az_auth
+az_auth
