@@ -54,7 +54,7 @@ else
 
 # Installation of clouds 
 . libs/installawscli.sh
-#. libs/install_azcli.sh
+. libs/install_azcli.sh
 
 # authN to cloud 
 . libs/csp_aunN.sh
