@@ -7,7 +7,7 @@
 #=====================================FUNCTIONS=======================================================
 #======================================================================================================
 
-# Set AWS authN variable 
+# Set AWS authN variable........ 
 aws_auth(){
 AWS_ACCESS_KEY_ID=$(yq -r '.auth_config.aws.access_key' $CREDENTIAL_FILE)
 AWS_SECRET_ACCESS_KEY=$(yq -r '.auth_config.aws.secret_access_key' $CREDENTIAL_FILE)
