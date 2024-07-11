@@ -14,6 +14,9 @@
 #
 # Bootstrap scripts executes the initialization phase of application/program.
 #
+# variabls
+MAIL_RECIPIENT="patwekarmuskan2@gmail.com"
+MAIL_FROM="patwekarmuskan2@gmail.com"
 
 # Function declaration
 
@@ -86,14 +89,14 @@ if [[ ! -f ${MAIL_CONTENT} ]]; then
   exit 1
 fi
 
-#sendmail $MAIL_RECIPIENT <<EOF
-#From: $MAIL_FROM
-#To: $MAIL_RECIPIENT
-#Subject: HTML Format Email
-#Content-Type: text/html
+sendmail $MAIL_RECIPIENT <<EOF
+From: $MAIL_FROM
+To: $MAIL_RECIPIENT
+Subject: HTML Format Email
+Content-Type: text/html
 
-#$(cat ${MAIL_CONTENT})
-#EOF
+$(cat ${MAIL_CONTENT})
+EOF
 
 
 

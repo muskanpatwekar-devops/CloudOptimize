@@ -3,7 +3,7 @@
 #
 #
 #
-
+# checking the fiels
 #Ignore resource group created by Azure for managing network watcher service and log analytics storage workspace
  #Provide pipe-seperated list to add resource group in ignore
 IGNORE_RESOURCE_GROUPS="NetworkWatcherRG"
