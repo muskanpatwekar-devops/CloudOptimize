@@ -13,6 +13,7 @@ Development authentication is performed via a local YAML configuration file. Sto
 Authentication YAML format:
 ```
 
+
 auth_config:
   aws:
     access_key: xxxxxxxxxxxxxxxxxxxxxxxxx
