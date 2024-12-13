@@ -1,3 +1,2 @@
 CLOUD_PROVIDER,INSTANCE_NAME,INSTANCE_IP,INSTANCE_STATE,DATE,TAGS
-aws,aws-us-e1-dev-egrress-ec202,172.31.31.58,stopped,20240624-140217,20240624-140217,shutdown
-azure,azr-45879-dev-mngmt-vm01,10.0.0.4,deallocating,20240624-140224,shutdown
+aws,cloud_infra_petclinic,172.31.17.179,stopping,20241213-130838,20241213-130838,shutdown
